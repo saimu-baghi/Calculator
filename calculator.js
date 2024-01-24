@@ -6,6 +6,32 @@ const clearBtn = document.querySelector('[data-clear]');
 const prevOpTxtEm = document.querySelector('[data-prev-op]');
 const currOpTxtEm = document.querySelector('[data-curr-op]');
 
+window.onload = function () {
+    const calculatorGrid = document.querySelector('.calculator-grid');
+    const mobileMessage = document.createElement('p');
+    mobileMessage.innerText = 'If you see this, please turn on Desktop Site';
+    mobileMessage.style.textAlign = 'center';
+    mobileMessage.style.fontSize = '24px';
+
+    const handleResize = () => {
+        const tabletWidthThreshold = 768;
+        const isMobile = window.innerWidth < tabletWidthThreshold;
+
+        if (isMobile) {
+            calculatorGrid.style.display = 'none';
+            document.body.appendChild(mobileMessage);
+        } else {
+            calculatorGrid.style.display = 'grid';
+            if (document.body.contains(mobileMessage)) {
+                document.body.removeChild(mobileMessage);
+            }
+        }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+};
+
 class Calculator {
     constructor(prevOpTxtEm, currOpTxtEm) {
         this.prevOpTxtEm = prevOpTxtEm;
